@@ -7,6 +7,13 @@ by John Truong
 ## Formatting
 
 -   In the interest of version control, all sentences will be on separate lines.
+-   All labels must be prefixed by the type of the content according to the following table.
+
+    | Content  | Label |
+    | -------- | ----- |
+    | Figure   | FIG   |
+    | Equation | EQ    |
+    | Table    | TBL   |
 
 ## Outline
 
@@ -20,7 +27,7 @@ Here I provide a rough outline for the dissertation.
 2. Methods
     1. Schrieffer-Wolff Transformation
     2. von Neumann Equation Solution
-    3. Single Shot Numerical Generation of $1/f$ noise.
+    3. (Maybe) Single Shot Numerical Generation of $1/f$ noise.
 3. Generic 4 Level Model
     1. Introduction
     2. Hamiltonian
