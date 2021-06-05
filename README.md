@@ -11,6 +11,7 @@ by John Truong
 
     | Content  | Label |
     | -------- | ----- |
+    | Chapter  | CH    |
     | Figure   | FIG   |
     | Equation | EQ    |
     | Table    | TBL   |

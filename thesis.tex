@@ -1,83 +1,23 @@
-%\documentclass{ucbthesis}
-%\usepackage{amssymb}
-%
-%\usepackage{color}
-%\usepackage{amsmath}
-%\usepackage{enumerate}
-%\usepackage{caption}
-%\usepackage{subcaption}
-%\usepackage{amsthm}
-%\usepackage{exscale}
-%\usepackage[mathscr]{eucal}
-%%\usepackage{bm}
-%%\usepackage{eqlist} % Makes for a nice list of symbols.
-%\usepackage[]{graphicx}
-%%\DeclareGraphicsExtensions{.pdf, .jpg, .png}
-%\usepackage{natbib}
-%%\usepackage{har2nat}
-%\usepackage{verbatim}
-%\usepackage{url}
-%%\usepackage{longtable}
-%\usepackage{mathpazo}
-
-%\usepackage{pstricks}
-%\usepackage{sgamevar}
-%\usepackage{egameps}
-%\usepackage{listings}
-%
-%\usepackage{booktabs} %for top, middle and bottomline
-%\usepackage{array} %enables, for table columns, m{width} and b{width} (only p{width is available without it})
-%\usepackage{tabularx} %for automation of column widths so that the table spans the width defined by textwidth and linewidth
-
 \documentclass{ucbthesis}
 \usepackage[]{graphicx}
 \usepackage{epstopdf}
-\usepackage{mathrsfs}
 \usepackage{amssymb}
 \usepackage{color}
 \usepackage{placeins}
 \usepackage{amsmath}
-\usepackage{enumerate}
-\usepackage{hyperref}
 \usepackage{braket}
 \usepackage{tabularx} %for automation of column widths so that the table spans the width defined by textwidth and linewidth
-\usepackage{subcaption}
 \usepackage{physics}
 \usepackage{cite}
 \usepackage{appendix}
-
-%\usepackage{notoccite}
+\usepackage{setspace}
 \setlength{\overfullrule}{0pt}
-\newcommand{\irow}[1]{
-  \begin{smallmatrix}(#1)\end{smallmatrix}%
-} %inline row vectors
 
-% make the bibliography a section rather than a chapter
-%\makeatletter
-%\renewenvironment{thebibliography}[1]
-%     {\section*{\bibname}
-%      \@mkboth{\MakeUppercase\bibname}{\MakeUppercase\bibname}%
-%      \list{\@biblabel{\@arabic\c@enumiv}}%
-%           {\settowidth\labelwidth{\@biblabel{#1}}%
-%            \leftmargin\labelwidth
-%            \advance\leftmargin\labelsep
-%            \@openbib@code
-%            \usecounter{enumiv}%
-%            \let\p@enumiv\@empty
-%            \renewcommand\theenumiv{\@arabic\c@enumiv}}%
-%      \sloppy
-%      \clubpenalty4000
-%      \@clubpenalty \clubpenalty
-%      \widowpenalty4000%
-%      \sfcode`\.\@m}
-%     {\def\@noitemerr
-%       {\@latex@warning{Empty `thebibliography' environment}}%
-%      \endlist}
-%\makeatother
+\include{supplementary_material/commands}
 
 % double spacing: uncomment following lines
-\def\dsp{\def\baselinestretch{2.0}\large\normalsize}
-\dsp
+% \def\dsp{\def\baselinestretch{2.0}\large\normalsize}
+% \dsp
 
 % paragraph indents: uncomment following line
 % \usepackage{indentfirst}
@@ -86,73 +26,65 @@
 
 % Declarations for Front Matter
 
-\title{Thesis Title}
-\author{Author}
-\degreesemester{Graduation Semester}
-\degreeyear{Graduation Year}
+\title{Decoherence of the Hybrid Flip-Flop Qubit}
+\author{John Truong}
+\degreesemester{Summer}
+\degreeyear{2021}
 \degree{Doctor of Philosophy}
-\chair{Major adviser}
-\othermembers{Prof. Committee 1 \\ Prof. Committee 2}
+\chair{Prof. Xuedong Hu}
+\othermembers{Prof. Igor Zutic \\ Prof. Jong Han}
 \numberofmembers{2}
 \field{Physics}
 \campus{Amherst}
 
-
-
-% For a masters thesis, replace the above \documentclass line with
-% \documentclass[masters]{ucbthesis}
-% This affects the title and approval pages, which by default calls this
-% document a "dissertation", not a "thesis".
-
 \maketitle
 % Delete (or comment out) the \approvalpage line for the final version.
 % \approvalpage
-% \copyrightpage
+\copyrightpage
 
 
 
 \begin{frontmatter}
 
-% \begin{dedication}
-% \null\vfil
-% \begin{center}
-% To person\\\vspace{12pt}
-% the dedication goes here
-% \end{center}
-% \vfil\null
-% \end{dedication}
+  \begin{dedication}
+    \null\vfil
+    \begin{center}
+      To person\\\vspace{12pt}
+      the dedication goes here
+    \end{center}
+    \vfil\null
+  \end{dedication}
 
-\include{Acknowledgments}
+  \include{acknowledgments}
 
-\tableofcontents
-% \clearpage
-% \listoffigures
-% \clearpage
-% \listoftables
-\newpage
-\listoffigures
-\newpage
-\listoftables
+  \tableofcontents
+  % \clearpage
+  % \listoffigures
+  % \clearpage
+  % \listoftables
+  \newpage
+  \listoffigures
+  \newpage
+  \listoftables
 
-\include{abstract}
+  \include{abstract}
 
 \end{frontmatter}
 
-
-
-
 \pagestyle{headings}
-\include{introduction/introduction}
-\include{Chapter-1/chapter1}
-\include{Chapter-2/chapter2}
-\include{Chapter-3/chapter3}
-\include{Chapter-4/chapter4}
-\include{Chapter-5/chapter5}
-\include{Chapter-6/chapter6}
-\include{Appendix/appendix}
+\include{ch-intro/chapter}
+\include{ch-methods/chapter}
+\include{ch-generic/chapter}
+\include{ch-single/chapter}
+\include{ch-dipole/chapter}
+\include{ch-cavity/chapter}
+\include{ch-conclusions/chapter}
+\include{appendices/appendix}
+
+
 
 %use no cite to cite resources that have been used but not may not have been explicitly refered to in the text
-\nocite{ref4}
+\nocite{}
 \bibliographystyle{plain}
 \bibliography{bib}
 
