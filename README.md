@@ -12,6 +12,7 @@ by John Truong
     | Content  | Label |
     | -------- | ----- |
     | Chapter  | CH    |
+    | Section  | SEC   |
     | Figure   | FIG   |
     | Equation | EQ    |
     | Table    | TBL   |
@@ -27,12 +28,14 @@ Here I provide a rough outline for the dissertation.
     4. Semiconductor Qubits
 2. Methods
     1. Schrieffer-Wolff Transformation
+        1. Matrix Element Method (from Winkler book)
+        2. Operator Method
+        3. Example: Kane QC
     2. von Neumann Equation Solution
     3. (Maybe) Single Shot Numerical Generation of $1/f$ noise.
 3. Generic 4 Level Model
-    1. Introduction
-    2. Hamiltonian
-    3. Diagonalization
+    1. Hamiltonian
+    2. Diagonalization
 4. Single Flip-Flop Qubit
     1. Charge System
     2. Spin System

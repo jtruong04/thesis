@@ -11,9 +11,10 @@
 \usepackage{cite}
 \usepackage{appendix}
 \usepackage{setspace}
+\usepackage{import}
 \setlength{\overfullrule}{0pt}
 
-\include{supplementary_material/commands}
+\input{other/commands}
 
 % double spacing: uncomment following lines
 % \def\dsp{\def\baselinestretch{2.0}\large\normalsize}
@@ -24,63 +25,17 @@
 
 \begin{document}
 
-% Declarations for Front Matter
-
-\title{Decoherence of the Hybrid Flip-Flop Qubit}
-\author{John Truong}
-\degreesemester{Summer}
-\degreeyear{2021}
-\degree{Doctor of Philosophy}
-\chair{Prof. Xuedong Hu}
-\othermembers{Prof. Igor Zutic \\ Prof. Jong Han}
-\numberofmembers{2}
-\field{Physics}
-\campus{Amherst}
-
-\maketitle
-% Delete (or comment out) the \approvalpage line for the final version.
-% \approvalpage
-\copyrightpage
-
-
-
-\begin{frontmatter}
-
-  \begin{dedication}
-    \null\vfil
-    \begin{center}
-      To person\\\vspace{12pt}
-      the dedication goes here
-    \end{center}
-    \vfil\null
-  \end{dedication}
-
-  \include{acknowledgments}
-
-  \tableofcontents
-  % \clearpage
-  % \listoffigures
-  % \clearpage
-  % \listoftables
-  \newpage
-  \listoffigures
-  \newpage
-  \listoftables
-
-  \include{abstract}
-
-\end{frontmatter}
+\import{other/}{front_matter}
 
 \pagestyle{headings}
-\include{ch-intro/chapter}
-\include{ch-methods/chapter}
-\include{ch-generic/chapter}
-\include{ch-single/chapter}
-\include{ch-dipole/chapter}
-\include{ch-cavity/chapter}
-\include{ch-conclusions/chapter}
-\include{appendices/appendix}
-
+\import{ch-intro/}{chapter}
+\import{ch-methods/}{chapter}
+\import{ch-generic/}{chapter}
+\import{ch-single/}{chapter}
+\import{ch-dipole/}{chapter}
+\import{ch-cavity/}{chapter}
+\import{ch-conclusions/}{chapter}
+\import{appendices/}{appendix}
 
 
 %use no cite to cite resources that have been used but not may not have been explicitly refered to in the text
