@@ -1,5 +1,37 @@
 \section{Hardware}\label{SEC:hardware}
 
 \subsection{Criteria}
+For gate-based quantum computing, DiVincenzo lists five criteria for a fully realized quantum computer~\cite{divincenzo_2000}.
+
+\emph{Scalability}. The physical system being used for quantum computing must be scalable to larger numbers of well characterized qubits.
+``Well characterized'' here means that the parameters of the qubit are well known, or in other words, the Hamiltonian describing the qubit, the coupling between its states, and the coupling with its environment is well defined and understood.
+Due to our current knowledge and experience on solid state fabrication techniques, this requirement has promoted a lot of research into designing qubits based on solid state technology~\cite{loss_1998,imamoglu_1999,kane_1998}.
+
+\emph{Initialization}. We need to be able to initialize the quantum computer to some known value in order to perform any computation.
+There are two primary approaches to initialize the quantum state.
+The first is to let the let system relax to its ground state and use that as the initial state.
+The second approach is to perform a measurement in order to project the system into the desire initial state or to some other state that can then be rotated into the desired initial state.
+
+\emph{Universal Gates}. The system must have a set of operations than can be combined to perform any type of operation.
+While each system is different since interaction may or may not be able to be turned off, it has been shown that a set of single qubit gates and the two-qubit CNOT (controlled NOT) gate is sufficient to build any unitary operation on arbitrarily many qubits~\cite{barenco_1995}.
+
+\begin{figure}[htbp]
+    \centering
+    % TODO: Add figure. Looks like the one on Wikipedia. https://www.wikiwand.com/en/Controlled_NOT_gate
+    \includegraphics[width=0.75\columnwidth]{placeholder-image}
+    \caption{The CNOT gate is analogous to the classical XOR gate. Using $x$ as a control bit, the state of $y$ is flipped only if $x$ is in $\ket{1}$ state. Otherwise, if $x$ is in the $\ket{0}$ state, $y$ is unchanged.}
+    \label{FIG:cnot_gate}
+\end{figure}
+
+\emph{Measurement}. The results of a computation must be able to be read reliably.
+In real physical systems, measurements of real systems are not perfect. A qubit with true probability $p$ to be in one state and $1-p$ in the other state will not, due to a variety of reasons, generally be measured to have those exact probabilities.
+While these infidelities in measurement will result in lower efficiency, reliability can still be manufactured through repeated computations.
+This gives us a tradeoff between the desired level of reliability and the computation complexity and time.
+
+
+\emph{Coherence}. Qubits need to have decoherence times on a time scale much longer than the time scale to perform any computations.
+Short decoherence times---shorter than gate operation times---eliminate any benefit of using quantum mechanical effects to perform computations and quantum computers become no different from classical computers today.
+This remains one of the largest challenges to quantum computing today.
+
 \subsection{Current Status}
 \subsection{Future Goals}
