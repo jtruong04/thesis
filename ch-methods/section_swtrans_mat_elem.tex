@@ -1,0 +1,24 @@
+\subsection{Matrix Element Approach}
+
+This approach is best suited for Hamiltonians of finite Hilbert space where we can split the space into exactly two sets, the desired set $A$ and undesired set $B$.
+
+We rewrite equation~\ref{EQ:sw_trans_expanded} as follows,
+\begin{equation}
+    \tilde{H}_d + \tilde{H}_n = \sum_j \frac{1}{j!}\commute{H_0+H_1+H_2}{S}^{(j)} \,,
+\end{equation}
+where $\tilde{H}_d$ ($\tilde{H}_n$) represents the block (non-block) diagonal part of $\tilde{H}$.
+Furthermore, by design, $\tilde{H}_n$ must be zero to our desired order of perturbation theory.
+Since $S$ must be similar in structure to $H_2$, we can then write the following equations
+\begin{align}
+    \tilde{H}_d & = \sum_j \frac{1}{(2j)!}\commute{H_0+H_1}{S}^{(2j)} + \frac{1}{(2j+1)!}\commute{H_2}{S}^{(2j+1)}     \label{EQ:sw_trans_hd} \\
+    \tilde{H}_n & = \sum_j \frac{1}{(2j+1)!}\commute{H_0+H_1}{S}^{(2j+1)} + \frac{1}{(2j)!}\commute{H_2}{S}^{(2j)} = 0 \label{EQ:sw_trans_hn}
+\end{align}
+We can then solve for $S$ by using equation~\ref{EQ:sw_trans_hn} and then finally for $\tilde{H}$ but subsituting $S$ into equation~\ref{EQ:sw_trans_hd}. Here, we list $\tilde{H} = \tilde{H}^{(0)} + \tilde{H}^{(1)}+ \tilde{H}^{(2)}+...$ up to second order.
+\begin{subequations}
+    \begin{align}
+        H^{(0)}_{mm'} & = H_{0,mm'}                                                                        \\
+        H^{(1)}_{mm'} & = H'_{mm'}                                                                         \\
+        H^{(2)}_{mm'} & = \frac{1}{2}\sum_l H'_{ml}H'_{lm'}\left[\frac1{E_m-E_l}+\frac1{E_{m'}-E_l}\right]
+    \end{align}
+\end{subequations}
+where $H' = H_1 + H_2$, $m$ and $m'$ correspond to states in the desired subset $A$, and $l$ corresponds to states in subset $B$.

@@ -1,0 +1,38 @@
+\subsection{Operator Approach}
+
+The above method may not work for infinite Hilbert spaces or even just larger Hilbert spaces where we limited by computational power.
+The following approach is well suited to large or infinite systems that can be separated into smaller finite sized spaces of equal dimensions where the coupling between blocks is well known.
+
+An example of this is a finite system coupled to a microwave cavity. Let us begin with a Hamiltonian in the form
+\begin{equation}
+    H = H_{0,sys} + \hbar\omega_c a^\dagger a + Va^\dagger + V^\dagger a \,,
+\end{equation}
+where $H_{0,sys}$ is the unperturbed Hamiltonian acting only on the finite system, $\omega_c$ is the cavity frequency, $V$ acts only on the system and describe the coupling of the system to the cavity, and  $a$ ($a^\dagger$) is the annihilation (creation) operator for the cavity photons. The last two terms in the above equation serve the role of $H_2$ in equation~\ref{EQ:sw_trans_init_ham}.
+For the sake of simplicity, we'll also assume $H_1 = 0$.
+
+Since $S$ must have a similar form to $H_2$, we can write an ansatz for $S$,
+\begin{equation}
+    S = \hat{S}a^\dagger - \hat{S}^\dagger a \,.
+\end{equation}
+The minus sign is because $S$ must be anti-Hermitian.
+From equation~\ref{EQ:sw_trans_expanded}, we can determine $\tilde{H}$ order by order,
+\begin{align}
+    \tilde{H}^{(0)} & = H_0                                                                                                                                                             \\
+    \tilde{H}^{(1)} & = Va^\dagger + V^\dagger a + \commute{H_0}{S} = 0                                                                                                                 \\
+    \tilde{H}^{(2)} & = \commute{Va^\dagger + V^\dagger a}{S} + \frac{1}{2}\commute{\commute{H_0}{S}}{S} = \frac{1}{2}\commute{Va^\dagger + V^\dagger a}{S} \label{EQ:sw_trans_h_order}
+\end{align}
+We then use the fact that $\tilde{H}^{(1)}=0$ to solve for $S$.
+\begin{align*}
+    \commute{H_{0,sys}+\hbar \omega_c a^\dagger a}{\hat{S}a^\dagger - \hat{S}^\dagger a} & = -Va^\dagger - V^\dagger a
+\end{align*}
+Solving for $\hat{S}$ yields
+\begin{align}
+    \hat{S}_{mn}         & = -\frac{V_{mn}}{E_m-E_n+\hbar\omega_c}         \\
+    \hat{S}^\dagger_{mn} & = \frac{V^\dagger_{mn}}{E_m-E_n-\hbar \omega_c}
+\end{align}
+where the $E_m$ and $E_n$ are the eigenenergies of the system. We can now substitute back into \ref{EQ:sw_trans_h_order} to get the transformed Hamiltonian. Neglecting $a^2$ and $(a^\dagger)^2$ terms, the final second order effective Hamiltonian is
+\begin{align}
+    \tilde{H}^{(2)} & = \frac{1}{2}\commute{Va^\dagger + V^\dagger a}{\hat{S}a^\dagger - \hat{S}^\dagger a}                                                     \nonumber \\
+                    & = \frac{1}{2}\left(\commute{ V^\dagger a}{\hat{S}a^\dagger }-\commute{Va^\dagger }{\hat{S}^\dagger a}\right)\nonumber                     \nonumber \\
+                    & = \frac{1}{2}\left(V^\dagger\hat{S}+\hat{S}^\dagger V+\left(\commute{ V^\dagger }{\hat{S}}-\commute{V}{\hat{S}^\dagger}\right)a^\dagger a\right)
+\end{align}

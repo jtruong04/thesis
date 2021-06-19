@@ -1,44 +1,42 @@
 \section{Schrieffer-Wolff Transformation}\label{SEC:sw_trans}
+The Schrieffer-Wolff transformation is a technique for reducing large time-independent Hamiltonians into smaller more manageable ones.
+It is particularly useful when the system is divided into well separated energy manifolds and we are only interested in one of them.
+This transformation is not unlike standard perturbation theory where the final Hamiltonian is diagonalized.
+However, the primary difference is that the Shrieffer-Wolff transformation results in a Hamiltonian that is \emph{block} diagonal.
+One benefit of this technique is that it does not require non-degeneracy between states within a block.
 
-\subsection{Matrix Element Approach}
-\subsection{Operator Approach}
-\subsection{An Example: Donor Spin Coupling}
+We assume that the Hilbert space can be subdivided into two or more weakly interacting sets ($A$, $B$, etc), where we are only interested in one of the sets. The primary condition for this subdivision is that a state $\ket{m}$ in set $A$ may not be degenerate with another state $\ket{n}$ in a different state $B$.
 
-In order to illustrate the usefulness of the Schrieffer-Wolff transformation, we apply it to the Kane quantum computer~\cite{kane_1998} in order to obtain the effective coupling between phosphorus donor spins.
-In this model, each donor spin is coupled to their respective donor electrons via the contact hyperfine interaction.
-The two electrons are then coupled to each other via the exchange interaction.
-This in turn yields a higher order effectively coupling between the nuclear spins.
-The Schrieffer-Wolff transformation then can be used to calculate the form of this interaction.
+We start by expressing the total Hamiltonian as the sum of an unperturbed Hamiltonian $H_0$, and perturbation $V = H_1 + H_2$,
+\begin{equation}
+    H = H_0 + H_1 + H_2 \,.
+    \label{EQ:sw_trans_init_ham}
+\end{equation}
+The unperturbed Hamiltonian has known eigenvalues $E_n$ and eigenstates $\ket{n}$.
+$H_1$ is solely responsible for \emph{intra}-block coupling while $H_2$ is responsible for \emph{inter}-block coupling.
 
 \begin{figure}[htbp]
     \centering
-    % TODO: Add figure. Energy spectrum for Kane QC
+    % TODO
     \includegraphics[width=0.75\columnwidth]{placeholder-image}
-    \caption[Kane quantum computer energy spectrum.]{The energy spectrum for the Kane quantum computer. Note the well separated energy manifolds. The lowest energy manifold is the one of interest.}
-    \label{FIG:kane_qc_spectrum}
+    \caption[Shrieffer-Wolff transformation. Matrix diagrams.]{Diagrams showing the general forms of $H_0$, $H_1$, and $H_2$. $H_0$ is purely diagonal, $H_1$ is block diagonal, and $H_2$ is off-block diagonal.}
+    \label{<label>}
 \end{figure}
 
-The model can be represented by the Hamiltonian (with $\hbar=1$)
-\begin{equation}
-    H = -\sum_{i=1,2} \left(\frac{1}{2}\Omega_i \tau_{z}^{(i)} + \frac{1}{2}\omega_i \sigma_z^{(i)} - A_i \vec{\tau}^{(i)}\cdot \vec{\sigma}^{(i)}\right) + J\vec{\sigma}^{(1)}\cdot\vec{\sigma}^{(2)} \,,
+The main conceit of the Schrieffer-Wolff transformation is that we can apply a unitary transformation $S$ on $H$,
+\begin{equation}\label{EQ:sw_trans}
+    \tilde{H} =e^{-S}He^S \,,
 \end{equation}
-where $\vec{\tau}^{(i)}$ ($\vec{\sigma}^{(i)}$) are the Pauli matrices for the nuclear (electron) spins, $\Omega_i$ ($\omega_{i}$) are the Zeeman energy splittings, $A_i$ are the hyperfine coupling strength for each nuclear-electron spin pair, and $J$ is the electron exchange interaction.
-This is a sixteen level system.
-However, since the electron Zeeman energy is much greater than the nuclear Zeeman energy, this system is separated into three well-separated energy manifolds corresponding to the three electron spin configurations with different energy (the electron states $\ket{\uparrow\downarrow}$ and $\ket{\downarrow\uparrow}$ have the same energy).
-We can then readily see that the hyperfine interactions couple the parallel electron spin manifolds ($\ket{\uparrow\uparrow}$, $\ket{\downarrow\downarrow}$) with the antiparallel manifold ($\ket{\uparrow\downarrow}$, $\ket{\downarrow\uparrow}$) while the exhange interaction couples within the antiparallel manifold.
-The Schrieffer-Wolff transformation can be used to reduce this sixteen dimensional system down to a four dimensional system by restricting our space to the two-electron ground state, $\ket{\downarrow\downarrow}$.
+such that the resulting Hamiltonian $\tilde{H}$ decouples the states between the various sets up to the desired order, i.e. $\bra{m}\tilde{H}\ket{n} = 0$ for all $m$ and $n$ in different subsets.
 
-We begin the Schrieffer-Wolff transformation by defining our $A$ and $B$ subsets and splitting the total Hamiltonian into the unperturbed Hamiltonian $H_0$ and perturbation $H'$,
-\begin{align}
-    H_0 & = -\frac{1}{2}\sum_i \left(\Omega_i \tau_{z}^{(i)} + \omega_i \sigma_z^{(i)} \right)                                   \\
-    H'  & = \sum_i \left( A_i \vec{\tau}^{(i)}\cdot \vec{\sigma}^{(i)}\right) + J\vec{\sigma}^{(1)}\cdot\vec{\sigma}^{(2)}   \,,
-\end{align}
-with $A$ being the set of four states in the two-electron ground state and $B$ containing the remaining twelve states.
-Following the procedure and equations outlined above up to the third order, we arrive at an effective Hamiltonian,
-\begin{multline}
-    H_\textrm{eff}= -\frac{1}{2}\sum_i \left( \Omega_i -2 A_i - \frac{4A_i^2(2J+\omega_i-\Omega_i)}{(\omega_i-\Omega_i)^2} \right)\tau_z^{(i)} \\ + 2JA_1A_2\left( \frac{1}{(\omega_1-\Omega_1)(\omega_2-\Omega_1)} + \frac{1}{(\omega_1-\Omega_2)(\omega_2-\Omega_2)}\right)(\tau_x^{(1)}\tau_x^{(2)}+\tau_y^{(1)}\tau_y^{(2)}) \,,
-\end{multline}
-where the constant term has been omitted.
-The Schrieffer-Wolff transformation then allows us to easily see that using the electron exchange and hyperfine interactions as the intermediary between the nuclear spins yields two main effects.
-Firstly, the hyperfine interaction introduces a phase shift which is further modified by the exchange coupling.
-Secondly, and more importantly, the effective coupling between the nuclear spins is in the form of an $XY$ interaction with strength proportional to $JA_1A_2$ which can be used to build iSWAP gates.
+By expanding out the unitary transformation in a Taylor series,
+\begin{equation}
+    e^{S} = 1 + S + \frac{1}{2}S^2 + ...\,
+\end{equation}
+and multiplying out equation~\ref{EQ:sw_trans}, we obtain for the transformed Hamiltonian
+\begin{equation}\label{EQ:sw_trans_expanded}
+    \tilde{H} = H + \commute{H}{S} + \frac{1}{2}\commute{\commute{H}{S}}{S} + ... = \sum_j \frac{1}{j!}\commute{H}{S}^{(j)} \,,
+\end{equation}
+where the commutators $\commute{A}{B}^{(j)}$ are defined by $[...[[A,\underbrace{B],B]...B}_{j\textrm{ times}}]$.
+
+From this point, we show two potential approaches depending on the form of $H$. The first allows us to compute $\tilde{H}$ element by element. The second allows us to compute $\tilde{H}$ by multiplying operators.
