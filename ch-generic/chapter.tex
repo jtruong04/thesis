@@ -1,4 +1,163 @@
 \chapter{A Generic Four-Level System}\label{CH:generic}
 
-\input{section_hamiltonian}
-\input{section_diagonalization}
+\begin{figure}[htbp]
+    \centering
+    % TODO
+    \includegraphics[width=0.75\columnwidth]{placeholder-image}
+    \caption[Energy level diagram of a generic four level system.]{A generic four-level model. }
+    \label{FIG:four_level_diagram}
+\end{figure}
+\begin{figure}[htbp]
+    \centering
+    % TODO
+    \includegraphics[width=0.75\columnwidth]{placeholder-image}
+    \caption[Energy level diagram of a generic four level system.]{A generic four-level model. }
+    \label{FIG:four_level_leakage}
+\end{figure}
+\begin{figure}[htbp]
+    \centering
+    % TODO
+    \includegraphics[width=0.75\columnwidth]{placeholder-image}
+    \caption[Energy level diagram of a generic four level system.]{A generic four-level model. }
+    \label{FIG:four_level_prefactors}
+\end{figure}
+
+In this chapter, we set out to solve a generic four level system consisting of pairs of degenerate states separated by some energy difference $\delta$ as shown in figure~\ref{FIG:four_level_diagram}. We label these states $\ket{s_L}$, $\ket{s_R}$, $\ket{c_L}$, and $\ket{c_R}$. The $\ket{s}$ ($\ket{c}$) states are coupled to each other via $g_{s}$ ($g_{c}$). We also include on-site excitations via $g_1$ and cross-site excitations via $g_2$.
+The Hamiltonian is
+\begin{align}
+    H_0 & =-\frac{1}{2}\delta \sigma_z + \frac{1}{2}g_s(1+\sigma_z)\tau_x + \frac{1}{2}g_c(1-\sigma_z)\tau_x + g_1\sigma_x + g_2\sigma_x\tau_x =\left( \begin{array}{cccc}
+            0     & g_s   & g_{1}  & g_{2}  \\
+            g_s   & 0     & g_{2}  & g_{1}  \\
+            g_{1} & g_{2} & \delta & g_c    \\
+            g_{2} & g_{1} & g_c    & \delta
+        \end{array}\right)\, ,
+\end{align}
+While we use this model to simplify our work on the hybrid flip-flop qubit to be covered in later chapters, we can also envision this generic model describing other systems. For example, this model can also be used to describe an electron in a symmetric quantum double dot.
+
+We also define two uncorrelated sources of noise.
+\begin{subequations}
+    \begin{align}
+        h_L & = \hbar\gamma_1 (\ket{s_L}\bra{c_L} +\ket{c_L}\bra{s_L})-\hbar\gamma_2 \cdot \mathrm{diag} (0,0,2,0)      \\
+        h_R & = \hbar\gamma_1 (\ket{s_R}\bra{c_R} +\ket{c_R}\bra{s_R})-\hbar\gamma_2 \cdot \mathrm{diag} (0,0,0,2) \, ,
+    \end{align}
+\end{subequations}
+where $\gamma_1$ can cause transitions between the ground and excited states on each side and $\gamma_2$ causes energy fluctuations and ultimately dephasing.
+
+Both operational times and decoherence times for this general Hamiltonian can be determined by defining mixing angles $\phi_\pm$.
+\begin{equation}
+    \tan\phi_\pm = \frac{-2(g_{1}\pm g_{2})}{-\delta\mp(g_c-g_s)}
+\end{equation}
+
+Neglecting the effect of the noise, the time evolution of this system is solvable exactly. The rotation matrix to diagonalize $H_0$ is:
+\begin{equation}
+    R=\frac{1}{\sqrt{2}}\left( \begin{array}{cccc}
+            \cos\frac{\phi_+}{2}  & \cos\frac{\phi_-}{2}  & \sin\frac{\phi_+}{2} & \sin\frac{\phi_-}{2}  \\
+            \cos\frac{\phi_+}{2}  & -\cos\frac{\phi_-}{2} & \sin\frac{\phi_+}{2} & -\sin\frac{\phi_-}{2} \\
+            -\sin\frac{\phi_+}{2} & -\sin\frac{\phi_-}{2} & \cos\frac{\phi_+}{2} & \cos\frac{\phi_-}{2}  \\
+            -\sin\frac{\phi_+}{2} & \sin\frac{\phi_-}{2}  & \cos\frac{\phi_+}{2} & -\cos\frac{\phi_-}{2}
+        \end{array}\right)
+\end{equation}
+
+This system evolves with oscillations about the equilibrium state at 6 fundamental frequencies (and their negatives):
+\begin{subequations}
+    \begin{align}
+        \hbar\omega_a = -\hbar\omega_{-a} & = \frac{1}{2}\delta(\cos\phi_+ - \cos\phi_-) - \frac{1}{2}g_c(2 - \cos\phi_+ - \cos\phi_-) \nonumber                   \\
+                                          & \qquad + g_{2}(\sin\phi_+ + \sin\phi_-) - \frac{1}{2}g_s(2 + \cos\phi_+ + \cos\phi_-) + g_{1}(\sin\phi_+ - \sin\phi_-) \\
+        \hbar\omega_b = -\hbar\omega_{-b} & = \frac{1}{2}\delta(\cos\phi_+ + \cos\phi_-) - \frac{1}{2}g_c(2 - \cos\phi_+ + \cos\phi_-)\nonumber                    \\
+                                          & \qquad + g_{2}(\sin\phi_+ - \sin\phi_-) - \frac{1}{2}g_s(2 + \cos\phi_+ - \cos\phi_-)+ g_{1}(\sin\phi_+ + \sin\phi_-)  \\
+        \hbar\omega_c = -\hbar\omega_{-c} & = \frac{1}{2}\delta(\cos\phi_+ + \cos\phi_-) + \frac{1}{2}g_c(2 + \cos\phi_+ - \cos\phi_-) \nonumber                   \\
+                                          & \qquad+ g_{2}(\sin\phi_+ - \sin\phi_-) + \frac{1}{2}g_s(2 - \cos\phi_+ + \cos\phi_-)+ g_{1}(\sin\phi_+ + \sin\phi_-)   \\
+        \hbar\omega_d = -\hbar\omega_{-d} & = \frac{1}{2}\delta(\cos\phi_+ - \cos\phi_-) + \frac{1}{2}g_c(2 + \cos\phi_+ + \cos\phi_-) \nonumber                   \\
+                                          & \qquad+ g_{2}(\sin\phi_+ + \sin\phi_-) + \frac{1}{2}g_s(2 - \cos\phi_+ - \cos\phi_-)+ g_{1}(\sin\phi_+ - \sin\phi_-)   \\
+        \hbar\omega_e = -\hbar\omega_{-e} & = \delta\cos\phi_+ + g_c\cos\phi_+ + 2g_{2} \sin\phi_+ - g_s\cos\phi_+ + 2g_{1}\sin\phi_+                              \\
+        \hbar\omega_f = -\hbar\omega_{-f} & = \delta\cos\phi_- - g_c\cos\phi_- - 2g_{2} \sin\phi_- + g_s\cos\phi_- + 2g_{1}\sin\phi_-
+    \end{align}
+\end{subequations}
+with their amplitudes depending on which density matrix element of interest. In general, these amplitudes are given by
+\begin{equation}
+    C_{ab,jk}=\sum_{mn}R_{aj}R_{jm}^{-1}R_{bk}R_{kn}^{-1}\rho_{mn}(0)
+\end{equation}
+The summation of all terms with $j=k$ yield the long term equilibrium value for matrix element $\rho_{ab}$. Terms where $j\ne k$ can all be associated with one of the above frequencies.
+
+As an example, if we initialize the system to be in state $\ket{\Psi(0)} = \alpha\ket{f_L} + \beta\ket{f_R}$ with real $\alpha$ and $\beta$, the population of the $\ket{f_L}$ state (i.e. $\rho_{00}(t)$), oscillates at the above frequencies with amplitudes:
+\begin{subequations}
+    \begin{align}
+        C_{0000,a}=C_{0000,-a} & = \frac{1}{4}(\alpha^2-\beta^2)\cos^2(\phi_+/2)\cos^2(\phi_-/2) \\
+        C_{0000,b}=C_{0000,-b} & = \frac{1}{4}(\alpha^2-\beta^2)\cos^2(\phi_+/2)\sin^2(\phi_-/2) \\
+        C_{0000,c}=C_{0000,-c} & = \frac{1}{4}(\alpha^2-\beta^2)\sin^2(\phi_+/2)\cos^2(\phi_-/2) \\
+        C_{0000,d}=C_{0000,-d} & = \frac{1}{4}(\alpha^2-\beta^2)\sin^2(\phi_+/2)\sin^2(\phi_-/2) \\
+        C_{0000,e}=C_{0000,-e} & = \frac{1}{16}(\alpha+\beta)^2\sin^2\phi_+                      \\
+        C_{0000,f}=C_{0000,-f} & = \frac{1}{16}(\alpha-\beta)^2\sin^2\phi_-
+    \end{align}
+\end{subequations}
+
+When noise is included, each of these oscillating terms will decay with rates
+\begin{subequations}
+    \begin{align}
+        \Gamma_a & = \gamma_2(\cos\phi_+ - \cos\phi_-)/2 + \gamma_1(\sin\phi_+-\sin\phi_-)/2 \\
+        \Gamma_b & = \gamma_2(\cos\phi_+ + \cos\phi_-)/2 - \gamma_1(\sin\phi_++\sin\phi_-)/2 \\
+        \Gamma_c & = \gamma_2(\cos\phi_+ + \cos\phi_-)/2 - \gamma_1(\sin\phi_++\sin\phi_-)/2 \\
+        \Gamma_d & = \gamma_2(\cos\phi_+ - \cos\phi_-)/2 + \gamma_1(\sin\phi_+-\sin\phi_-)/2 \\
+        \Gamma_e & = \gamma_2\cos\phi_+-\gamma_1\sin\phi_+                                   \\
+        \Gamma_f & = \gamma_2\cos\phi_--\gamma_1\sin\phi_-
+    \end{align}
+\end{subequations}
+Overall, the time evolution can be written as
+\begin{equation}
+    \rho_{ab} = \rho_{ab}(t\rightarrow\infty) + \sum_{j={a..f}}\left(C_{ab,j}\exp(-i\omega_jt)+C_{ab,-j}\exp(i\omega_jt)\right)\exp(-2J(t,0,0)\Gamma_j^2)
+\end{equation}
+Notice that only the amplitudes depend on the particular matrix element while the frequencies and decay rates are common for each.
+
+If the two lower energy states (the $\ket{s}$ states) are part of the qubit logical basis, the amount of leakage (population of the $\ket{c}$ states), we can expect as $t\rightarrow\infty$ is equal to
+\begin{equation}
+    P_\textrm{leak}(t\rightarrow\infty) = \frac{1}{4}\left( \alpha\beta(\cos2\phi_--\cos2\phi_+) + \sin^2\phi_++\sin^2\phi_-\right)
+    \label{leakage}
+\end{equation}
+
+Now we can look at several different parameter regimes.
+
+\emph{Case 1: $\delta \gg (g_c-g_s) > g_{2}$, weak coupling}. In the weak coupling regime, the two leakage states are well separated from the qubit states. The two mixing angles both approach $\pi$. In this particular case, there is only one relevant frequency, $\omega_d$, and decay rate $\Gamma_d$, which needs to be expanded in a series to obtain a non-zero value.
+\begin{equation}
+    P_{fL}(t) = \frac{1}{2}\left(1 + (\alpha^2-\beta^2)\cos(2g_st/\hbar)\exp\left(-2J(t,0,0)\left(\frac{4(g_c-g_s)g_{2}^2\omega_n}{\delta^3}\right)^2\right)\right)
+\end{equation}
+In this regime, the time is for an $X$ gate is
+\begin{equation}
+    T_{g} = \frac{\hbar\pi}{2g_s}
+\end{equation}
+and quality factor
+\begin{equation}
+    Q = (\Gamma T_g)^{-1} = \frac{\delta^3g_s}{2\pi\hbar\gamma_2(g_c-g_s)g_{2}^2}
+\end{equation}
+In addition to large quality factor, we also have minimal leakage. The expected long time leakage is
+\begin{equation}
+    P_\textrm{leak} = 2g_{2}^2/\delta^2
+\end{equation}
+
+\emph{Case 2: $\delta = (g_c-g_s) > g_{2}$, resonance}. In this regime, $\phi_+$ still approaches $\pi$, but $\phi_-$ becomes exactly equal to $-\pi/2$. Now the expression for $P_{fL}(t)$ becomes
+\begin{multline}
+    P_{fL}(t) = \frac{3}{8} + \frac{1}{8}(\alpha-\beta)^2\cos(2g_{2}t/\hbar)\exp\left( -2J(t,0,0) \gamma_1^2 \right) \\
+    + \frac{1}{4}(\alpha^2-\beta^2)\cos((2g_{2}-3g_s)t/2\hbar)\exp\left( -2J(t,0,0) (\gamma_2-\gamma_1)^2/4 \right) \\
+    + \frac{1}{4}(\alpha^2-\beta^2)\cos((2g_{2}+3g_s)t/2\hbar)\exp\left( -2J(t,0,0) (\gamma_2+\gamma_1)^2/4 \right)
+\end{multline}
+This expression indicates beats in the evolution with beat frequencies $3g_s$ and $2g_{2}$. The beats will decay away however due to the different decay rates. To estimate a quality factor in this limit, we use the slower beat frequency along with the average for the two decay rates, which is roughly just the larger of $\gamma_2$ and $\omega_2$. The quality factor in this regime is then approximately
+\begin{equation}
+    Q = \frac{3g_s}{\pi\hbar\gamma_2}
+\end{equation}
+This does not necessarily mean that in this regime, the gate time is expected to to be the same as in case 1. If $g_{2}$ is sufficiently large compared to $g_s$, we can instead use the faster frequency to determine the gate time depending on the fidelity desired. This regime has a long time leakage of
+\begin{equation}
+    P_\textrm{leak} = \frac{1}{4}(1-2\alpha\beta)
+\end{equation}
+
+\emph{Case 3: $\delta \ll (g_c-g_s) > g_{2}$, strong coupling}. The angle $\phi_+$ moves toward $\tan^{-1}(2g_{2}/(g_c-g_s))$ and $\phi_-$ tends toward $\tan^{-1}(-2g_{2}/(g_c-g_s))$. As a simple approximation for $g_c-g_s>g_{2}$., we use $\phi_+ = \pi$ and $\phi_-=0$ to obtain for the time evolution,
+\begin{equation}
+    P_{fL}(t) = \frac{1}{2}\left(1+(\alpha^2-\beta^2)\cos(2g_st/\hbar)\exp\left( -2J(t,0,0)\left( \frac{4g_{2}^2\delta}{(4g_{2}^2 + (g_c-g_s)^2)^{3/2}} \right)^2 \right)\right)
+\end{equation}
+This yields a quality factor of
+\begin{equation}
+    Q = \frac{(4g_{2}^2 + (g_c-g_s)^2)^{3/2}g_s}{2\pi\hbar\gamma_2\delta}
+\end{equation}
+While this does look promising, there remains a problem. And that is leakage. Going back to equation~\ref{leakage}, we can see that the leakage is non-zero when we do not use the above simplification. We'll be seeing a leakage of about
+\begin{equation}
+    P_\textrm{leak} = \frac{2g_{2}^2}{4g_{2}^2+(g_c-g_s)^2}
+\end{equation}
+This could be much worse as the detuning, $\delta$, is increased and approaches the resonant condition described in case 2.

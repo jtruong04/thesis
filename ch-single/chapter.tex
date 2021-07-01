@@ -1,8 +1,21 @@
 \chapter{The Hybrid Flip-Flop Qubit}\label{CH:single}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Convallis aenean et tortor at risus viverra adipiscing at. Rutrum tellus pellentesque eu tincidunt tortor aliquam nulla facilisi cras. Luctus accumsan tortor posuere ac ut consequat semper viverra nam. Lectus nulla at volutpat diam ut venenatis tellus in metus. Nibh mauris cursus mattis molestie a iaculis at. Egestas quis ipsum suspendisse ultrices gravida dictum fusce. Lacinia at quis risus sed. Ut venenatis tellus in metus vulputate. Tortor at risus viverra adipiscing. Aliquam vestibulum morbi blandit cursus risus at ultrices. Neque volutpat ac tincidunt vitae. In massa tempor nec feugiat.
+The flip-flop qubit is a hybrid of a spin and a charge qubit~\cite{tosi_2017}.
+The physical system is a phosphorus donor implanted in an isotopically enriched silicon substrate close to a Si/SiO$_2$ interface.
+A surface metal gate induces an interface quantum dot (iQD), and is also used to tune the applied electric field in the growth($z$)-direction.
+The bare flip-flop states for the electron and nuclear spins on the donor, $\ket{\uparrow\Downarrow}$ and $\ket{\downarrow\Uparrow}$, are isolated from the polarized states and are highly coherent.
+However, as a pure spin qubit, albeit encoded in a two-spin state, it suffers from the same issues with respect to long-distance communication.
+The solution provided by the flip-flop qubit design is to adjust the surface gate potentials so that the donor electron can tunnel to the iQD with a tunable magnitude.
+The electron locating at the iQD or the donor would form the basis for a charge qubit.
+With hyperfine interaction only present on the donor site, and the electron $g$-factor different between the donor and iQD sites, the spin and charge qubits are coupled by these magnetic inhomogeneities, which allow electrical control of the spin states.
+The dressed flip-flop qubit is then defined as the lowest two eigenstates of this coupled spin-charge system.
+
+In this chapter, we explore the single isolated flip-flop qubit.
+We first examine the bare charge and spin parts of the system.
+Then we hybridize the system by coupling the spin to the charge and explore the evolution of the the system in parameter-space.
 
 \input{section_charge}
 \input{section_spin}
 \input{section_hybrid}
+\input{section_noise}
 \input{section_solution}

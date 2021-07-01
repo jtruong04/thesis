@@ -1,0 +1,63 @@
+\subsection{Decay Profile: $1/f$ Noise}
+
+To reiterate, in order to determine the effect of the noise spectrum on the system, we need to compute the decay profile function,
+\begin{equation*}
+    J_n(t,\omega_1,\omega_2) = \int_{t_0}^tdt_1e^{i\omega_1t_1}\int_{t_0}^{t_1}dt_2 e^{i\omega_2t_2} S_n(t_1-t_2) \,.
+\end{equation*}
+We first split the above equation into two parts, a symmetric and an antisymmetric part,
+\begin{align}
+    J_{nS}(t,\omega_1,\omega_2) & = \frac{1}{2}\int_{t_0}^tdt_1\int_{t_0}^{t_1}dt_2 (e^{i\omega_1t_1}e^{i\omega_2t_2}+e^{i\omega_2t_1}e^{i\omega_1t_2}) S_n(t_1-t_2) \\
+    J_{nA}(t,\omega_1,\omega_2) & = \frac{1}{2}\int_{t_0}^tdt_1\int_{t_0}^{t_1}dt_2 (e^{i\omega_1t_1}e^{i\omega_2t_2}-e^{i\omega_2t_1}e^{i\omega_1t_2}) S_n(t_1-t_2)
+\end{align}
+such that $J_n(t,\omega_1,\omega_2) = J_{nS}(t,\omega_1,\omega_2) + J_{nA}(t,\omega_1,\omega_2)$.
+We can now evaluate these to be
+\begin{align}
+    J_{nS}(t,\omega_1,\omega_2) & = TODO \\
+    J_{nA}(t,\omega_1,\omega_2) & = TODO
+\end{align}
+where
+\begin{subequations}\label{EQ:f_integrals_generic}
+    \begin{align}
+        f_0(t)              & = TODO \\
+        f_t(t)              & = TODO \\
+        f_{\sin}(t,\omega)  & = TODO \\
+        f_{\cos}(t,\omega)  & = TODO \\
+        f_{t\sin}(t,\omega) & = TODO \\
+        f_{t\cos}(t,\omega) & = TODO
+    \end{align}
+\end{subequations}
+Determining the decay profile then boils down to computing these six integrals for whatever the noise spectrum may be.
+
+The power spectrum for $1/f$ noise is given by
+\begin{equation}
+    \tilde{S}(\omega) =
+    \begin{cases}
+        S_0/|\omega| & \text{if } \omega_l \le |\omega| \le \omega_h \\
+        0            & \text{otherwise}
+    \end{cases}
+\end{equation}
+where $\omega_l$ and $\omega_h$ are the low and high-frequency cutoffs. The temporal correlation function is simply the Fourier transform of this,
+\begin{equation*}
+    S(t) = \int_{-\infty}^\infty \tilde{S}(\omega)e^{i\omega t}d\omega = 2S_0\left(\Ci(\omega_ht)-\Ci(\omega_lt)\right) \,,
+\end{equation*}
+where $\Ci(x)$ is the cosine integral and defined by
+\begin{equation}
+    \Ci(x) = -\int_x^\infty dx \frac{\cos x}{x} \,.
+\end{equation}
+Furthermore, we choose the normalization constant $S_0$ so that $S(t=0) = 1$.
+This results in the time correlation function of
+\begin{equation}
+    S(t) = \frac{\Ci(\omega_ht)-\Ci(\omega_lt)}{\ln(\omega_h/\omega_l)} \,.
+\end{equation}
+Substituting into equations~\ref{EQ:f_integrals_generic}, we get for $1/f$ noise
+\begin{subequations}
+    \begin{align}
+        f_0(t)              & = TODO \\
+        f_t(t)              & = TODO \\
+        f_{\sin}(t,\omega)  & = TODO \\
+        f_{\cos}(t,\omega)  & = TODO \\
+        f_{t\sin}(t,\omega) & = TODO \\
+        f_{t\cos}(t,\omega) & = TODO
+    \end{align}
+\end{subequations}
+% TODO analysis of above equations.

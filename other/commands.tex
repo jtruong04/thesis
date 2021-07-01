@@ -14,7 +14,19 @@
 \usepackage{xspace}
 \usepackage{mfirstuc}
 \usepackage{multirow}
+\usepackage{tikz-feynman}
+\usetikzlibrary{external}
+\immediate\write18{mkdir -p pgf-img}
+\tikzexternalize[
+    prefix=pgf-img/,
+    system call={
+            lualatex \tikzexternalcheckshellescape -halt-on-error -interaction=batchmode -jobname="\image" "\texsource" || rm "\image.pdf"
+        },
+]
 
 \newcommand{\commute}[2]{\left[#1,#2\right]}
-
-% \usepackage{subcaption}
+\newcommand{\partialt}{\frac{\partial}{\partial t}}
+\newcommand{\doublebar}[1]{\bar{\bar{#1}}}
+\newcommand{\Ci}{\mathrm{Ci }}
+\newcommand{\Si}{\mathrm{Si }}
+\newcommand{\Ei}{\mathrm{Ei }}

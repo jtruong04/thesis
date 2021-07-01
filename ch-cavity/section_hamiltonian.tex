@@ -1,1 +1,90 @@
 \section{Effective Hamiltonian}\label{SEC:cavity_ham}
+
+Our total system consists of two four-level spin-charge hybrid flip-flop qubits and a microwave cavity.
+Each of the two qubits are coupled to the cavity via the electric dipole interaction.
+The cavity then acts as a mediator begetting a second order effective interaction between the qubits.
+The Hamiltonian for the combined system is
+\begin{align}\label{EQ:cavity_hamiltonian}
+    H & = \sum_q H_q + H_{cav} + \sum_q V_q \nonumber                                                                                        \\
+      & = -\frac{1}{2}\sum_q (\omega_\sigma \sigma_z + \omega_\tau \tau_z) + \hbar\omega_c a^\dagger a + \hbar g \sum_q (1+Z_q)(a+a^\dagger)
+\end{align}
+where $\omega_\sigma$ ($\omega_\tau$) are the energies for the dressed charge (spin) qubit, $\omega_c$ is the cavity energy, $g$ is the dipole-cavity coupling strength, and $Z_q$ is the electron position operator as in previous chapters.
+Notice here that the individual qubits do not see each other at all.
+Their coupling is purely mediated by the microwave cavity.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.3\textwidth}
+        \centering
+        \input{fig/single_qubit_cavity/a1}
+        \caption{$y=x$}
+        \label{fig:y equals x}
+    \end{subfigure}
+    \caption[Flip-flop qubit - cavity coupling diagrams.]{Pictorial representations of the various ways the flip-flop qubit couples to the microwave cavity. These can be combined to create higher order coupling terms.}
+    \label{FIG:qubit-cavity-coupling-1st-order-diagrams}
+\end{figure}
+
+Figure~\ref{FIG:qubit-cavity-coupling-1st-order-diagrams} shows Feynman-like diagrams depicting the interactions between a qubit and the cavity where each diagram shows one term in the final summation in equation~\ref{EQ:cavity_hamiltonian} after expanding out the $Z_q$ in terms of the Pauli operators and the raising and lowering operators
+\begin{align}
+    \sigma_\pm & = \sigma_x \pm i\sigma_y     \\
+    \tau_\pm   & = \tau_x \pm i\tau_y     \,.
+\end{align}
+The two processes labeled by $A^\dagger$ shows the creation of a photon with the relaxation of either the charge qubit ($\sigma_-$) with strength $g_\sigma$ or the spin qubit ($\sigma_z\tau_-$) with strength $g_\tau$.
+Notice that the spin relaxation has a dependence on the charge state due to the presence of the $\sigma_z$.
+The $B^\dagger$ processes show a spin-charge swap along with the creation of a photon.
+And $C^\dagger$ shows the relaxation of both charge and spin states in order to emit a photon.
+In addition to the three types of processes mentioned above, the remaining three types are non-energy conserving processes and are shown for completeness.
+In the Jaynes-Cummings model, these processes are omitted since they produce the counter-rotating terms.
+While the two $A^\dagger$ processes are most dominant in the first order since are the only ones that can conerve energy, at higher orders, the remaining terms can become dominant since multiple processes can combine to conserve energy through the creation and annihilation of virtual photons.
+
+In order the obtain the effective coupling between qubits induced by the cavity, we perform a Schrieffer-Wolff transformation as describd in the section~\ref{SEC:sw_trans}.
+We begin by writing the interaction Hamiltonian in the slightly more useful form.
+\begin{equation}
+    H_{int} = \sum_q V_q  =\sum_i (g_iQ_ia^\dagger + g_i^*Q_i^\dagger a)
+\end{equation}
+where $\mathbf{Q}$ is a complete basis set of operators that act only on the qubit subspaces.
+Here, the summation over $i$ is no longer over each qubit but rather over the set of $Q_i$ in $\mathbf{Q}$.
+While in this particular system there is no direct coupling between qubits, in general, a $Q_i$ could indeed operate on multiple qubits.
+We can now apply the transformation
+\begin{equation}
+    \tilde{H} = e^{-S}He^S
+\end{equation}
+where $S$ is given by
+\begin{equation}
+    S = \sum_i (S_ia^\dagger - S_i^\dagger a)
+\end{equation}
+with matrix elements
+\begin{align}
+    S_{i,mn}         & = -\frac{g_i Q_{i,mn}}{E_m-E_n+\hbar\omega_c}             \\
+    S^\dagger_{i,mn} & = \frac{g_i^*Q^\dagger_{i,mn}}{E_m-E_n-\hbar\omega_c} \,.
+\end{align}
+Let us choose a basis for $\mathbf{Q}$ such that the following equation is satisfied for any $Q_i$
+\begin{equation}
+    \frac{\bra{m} \sum_q H_q Q_i \ket{n}}{\bra{m}Q_i\ket{n}}- \bra{n}\sum_qH_q\ket{n} = E_m-E_n = \Delta_i
+\end{equation}
+that is for any $m$ and $n$ where $\bra{m}Q_i \ket{n} != 0$, the energy difference between states $\ket{m}$ and $\ket{n}$ is a constant $\Delta_i$.
+The most general of basis sets that satisfies this criteria is simply the set of matrix elements
+\begin{equation}
+    \mathbf{Q} = \{ \ket{m}\bra{n}:m,n \in  [1,N) \}
+\end{equation}
+For systems of dimension $2^N$, a more useful basis set is the set
+\begin{equation}
+    \mathbf{Q}  =\{ I, \sigma_z, \sigma_+, \sigma_-, ... \}
+\end{equation}
+where the ellipsis represents all tensor product combinations of the first four operators.
+It is with this basis set that the diagrams in figure~\ref{FIG:qubit-cavity-coupling-1st-order-diagrams} were generated.
+Under this condition, we can write the $S_i$ as operators
+\begin{align}
+    S_i         & = -\frac{g_qQ_i}{\Delta_i-\hbar\omega_c}           \\
+    S_i^\dagger & = -\frac{g_i^*Q_i^\dagger}{\Delta_i-\hbar\omega_c}
+\end{align}
+and calculate the effective Hamiltonian up to second order in the Schrieffer-Wolff transformation.
+\begin{equation}
+    \tilde{H}_{int} = \frac{1}{2}\sum_{ij}g_ig_j^*\left(\frac{1}{\Delta_i-\hbar\omega_c}+\frac{1}{\Delta_j-\hbar\omega_c}\right)\left(Q_j^\dagger Q_i + \commute{Q_j^\dagger}{Q_i}a^\dagger a\right)
+\end{equation}
+Where the summation over $i$ and $j$ are over all of the various diagrams.
+Due to the energy difference in the denominators, we must restrict ourselves to the dispersive regime where the cavity is not in resonance with the qubits.
+A key feature to notice here is the case of multi-qubit coupling.
+If $Q_i$ and $Q_j$ act on different qubits, they commute, and the resulting coupling does not depend on the cavity occupation.
+This is consistent with the results seen in superconducting quits couples via a cavity~\cite{majer_2007}.
+When $Q_i$ and $Q_j$ act on the same qubit, the commutator is not necessarily zero so the phase shift and other effects on the qubit introduced by the cavity can be dependent on the occupation number.

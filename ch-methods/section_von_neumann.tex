@@ -1,1 +1,120 @@
 \section{Solution to the von Neumann Equation}\label{SEC:von_neumann}
+
+Understanding the behavior of a qubit under of the influence of noise is of utmost importance for the realization of reliable quantum computers.
+By understanding the dynamics, we can then come up with plans on how to either mitigate the noise or to work around it so that we can design quantum gates with high fidelities.
+In this section, we outline a method to calculate the time evolution of a system in the presence of noise originally developed by Yang~\cite{yang_2019}.
+
+We begin by writing a general system Hamiltonian with multiple uncorrelated noise sources,
+\begin{equation}
+    H(t) = H_0 + \sum_n f_n(t)h_n \,,
+\end{equation}
+where $H_0$ is noiseless Hamiltonian, $h_n$ are the ways the system is coupled to the hoise, the the $f_n(t)$ are dimensionless fluctuating parameters describing the noise spectral properties.
+
+In order to solve for the dynamics of the system, we'll begin with the von Neumann equation in the Schroedinger picture,
+\begin{equation}
+    i\hbar\partialt\rho(t) = \commutator{H(t)}{\rho(t)} \,.
+\end{equation}
+We'll also define the Liouvillian superoperator $\mathcal{L}$ such that
+\begin{equation}
+    \mathcal{L}(A)\rho=\commutator{A}{\rho} \,.
+\end{equation}
+Superoperators are rank 4 tensors that act on operators.
+In order to better grasp how superoperators act on matrices, we can map higher rank tensors to lower ranked ones.
+In this case, we can vectorize our operators allowing us to write a superoperator as a rank 2 matrix,
+\begin{equation}
+    \rho=\sum_{ij}\rho_{ij}\ket{i}\bra{j}\rightarrow \ket{\rho}=\sum_{ij}\rho_{ij}\ket{i}\otimes\ket{j} \,.
+\end{equation}
+This mapping is equivalent to arranging the original array row by row along a line and then transposing it. For example:
+\begin{equation*}
+    \rho=\left(\begin{matrix} a & b\\c& d\end{matrix}\right)\rightarrow\left(\begin{matrix}a\\b\\c\\d\end{matrix}\right)
+\end{equation*}
+For the Liouvillian superoperator, we have:
+\begin{equation*}
+    \mathcal{L}(A)\rho = A\rho - \rho A  \rightarrow \left((A\otimes I)-(I\otimes A^T)\right)\rho
+\end{equation*}
+thus we can write with this mapping,
+\begin{equation}\label{EQ:mapping}
+    \mathcal{L}(A) = A\otimes I - I\otimes A^T
+\end{equation}
+Alternative mappings can yield different equations.
+Another useful mapping for a two-level (or any $2^N$ level system) is to use the Pauli matrices as the operator basis.
+Using this mapping for a two-level system, the density vector becomes the commonly use Bloch vector
+However, to maintain generality, we use the mapping outlined above to cover all possible number of dimensions $D$ rather than restricting ourselves to only 2 dimensions.
+
+We now transform into the interaction picture defined as follows:
+\begin{align}
+    A_I(t)                   & = U_0^\dag(t,t_0)A(t)U_0(t,t_0)                                    \\
+    U_0(t,t_0)               & = \exp_+\left(-\frac{i}{\hbar}\int_{t_0}^{t}d\tau H_0(\tau)\right) \\
+    i\hbar\partialt\rho_I(t) & = \mathcal{L}(H_I(t))\rho_I(t)
+\end{align}
+where the notation $\exp_+\left(\int_{t_0}^{t}d\tau g(\tau)\right)$ indicates a time-ordered exponential.
+In the interaction picture, the noise Hamiltonian is now:
+\begin{align}
+    H_I(t) & = \sum_n f_n(t)U_0^\dag(t,t_0)h_n(t)U_0(t,t_0) \nonumber \\
+           & = \sum_n f_n(t)h_n^I(t)
+\end{align}
+To simplify notation, $\mathcal{L}(h_n^I(t))$ will be contracted to $\mathcal{L}_n(t)$. In addition, the interaction picture will be implied unless otherwise stated, so we will drop the $I$ subscript (or superscript). Combining everything together, the Liouville-von Neumann equation in the interaction picture can be written as:
+\begin{equation}
+    i\hbar\partialt\rho(t) = \sum_nf_n(t)\mathcal{L}_n(t)\rho(t)
+\end{equation}
+The general solution for this equation is
+\begin{equation}
+    \rho(t)=\exp_+\left(-\frac{i}{\hbar}\sum_n\int_{t_0}^td\tau f_n(\tau)\mathcal{L}_n(\tau)\right)\rho(t_0) \,.
+\end{equation}
+Expanded out, this is simply the Dyson series.
+
+In order to obtain the final time evolution, we need to average over all possible realizations of the noises.
+Let us use $\langle...\rangle$ to indicate a statistical ensemble average.
+Then the solution is
+\begin{equation*}
+    \left\langle\rho(t)\right\rangle=\left\langle\exp_+\left(-\frac{i}{\hbar}\sum_n\int_{t_0}^td\tau f_n(\tau)\mathcal{L}_n(\tau)\right)\right\rangle\rho(t_0) \,.
+\end{equation*}
+Expanding out the exponential to the second order of cumulant expansion
+\begin{equation}
+    \langle\rho(t)\rangle = \exp\left(-\frac{1}{\hbar^2}\sum_{n}\int_{t_0}^tdt_1\int_{t_0}^{t_1}dt_2 S_n(t_1-t_2)\mathcal{L}_n(t_1)\mathcal{L}_n(t_2)\right)\rho(t_0)
+\end{equation}
+where we assume $\langle f_n(t)\rangle = 0$ and $\langle f_n(t_1)f_m(t_2)\rangle=\delta_{nm}\langle f_n(t_1)f_n(t_2)\rangle = \delta_{nm}S_n(t_1-t_2)$.
+$S_n(t_1-t_2)$ is the temporal correlation function for the noise source $n$.
+We further simplify this by defining a new superoperator
+\begin{equation}\label{EQ:decay_matrix}
+    K_n(t) = \frac{1}{\hbar^2}\int_{t_0}^tdt_1\int_{t_0}^{t_1}dt_2 S_n(t_1-t_2)\mathcal{L}_n(t_1)\mathcal{L}_n(t_2) \,.
+\end{equation}
+This operator can be thought of as a decay matrix that describes the effect of the noise on the system.
+Our final expression for the time evolution is now
+\begin{equation}
+    \langle\rho(t)\rangle = \exp\left(-\sum_n K_n(t)\right)\rho(t_0)
+\end{equation}
+and the only task remaining is to compute $K_n(t)$ for each source of noise and then calculating the matrix exponential.
+
+Let us assume that $H_0$ is purely diagonal, that is, it can be written as
+\begin{equation}
+    H_0 = \sum_i \epsilon_i\ket{i}\bra{i} \,.
+\end{equation}
+In the case where $H_0$ is non-diagonal, we can apply a rotation matrix $R$ to the system to transform into the eigenbasis of the system and diagonalize $H_0$.
+The time evolution operator takes on a simple form:
+\begin{equation}\label{EQ:time_evolution_operator}
+    U_0(t,t_0)  = \exp\left(-\frac{i}{\hbar}H_0(t-t_0)\right) = \sum_i \exp\left(-\frac{i}{\hbar}\epsilon_i (t-t_0)\right)\ket{i}\bra{i}
+\end{equation}
+Substituting equations~\ref{EQ:time_evolution_operator} and \ref{EQ:mapping} into equation~\ref{EQ:decay_matrix} yields
+\begin{align}
+    K_n(t) & =\frac{1}{\hbar^2}\int_{t_0}^tdt_1\int_{t_0}^{t_1}dt_2 S_n(t_1-t_2)\times \nonumber                                                                                    \\
+           & \qquad\qquad\qquad\qquad \left(\sum_{abc}e^{-i(\omega_{ab}t_1+\omega_{bc}t_2-\omega_{ac}t_0)}h_{n,ab}h_{n,bc}\ket{a}\bra{c}\otimes I\right. \nonumber                  \\
+           & \qquad\qquad\qquad\qquad -\sum_{abcd}e^{-i(\omega_{ab}t_1+\omega_{cd}t_2-(\omega_{ab}+\omega_{cd})t_0)}h_{n,ab}h_{n,dc} \ket{a}\bra{b}\otimes \ket{c}\bra{d}\nonumber  \\
+           & \qquad\qquad\qquad\qquad -\sum_{abcd}e^{-i(\omega_{ab}t_2+\omega_{cd}t_1-(\omega_{ab}+\omega_{cd})t_0)}h_{n,ab}h_{n,dc} \ket{a}\bra{b}\otimes \ket{c}\bra{d} \nonumber \\
+           & \qquad\qquad\qquad\qquad \left.+ \sum_{abc}e^{i(\omega_{ab}t_1+\omega_{bc}t_2-\omega_{ac}t_0)}h_{n,ba}h_{n,cb} I\otimes \ket{a}\bra{c}\right)
+\end{align}
+where $\omega_{jk} = (\epsilon_j - \epsilon_k)/\hbar$ and the summations are over all states. We define the integral
+\begin{equation}
+    J_n(t,\omega_1,\omega_2)\equiv \int_{t_0}^tdt_1e^{i\omega_1t_1}\int_{t_0}^{t_1}dt_2 e^{i\omega_2t_2} S_n(t_1-t_2)
+\end{equation}
+which characterizes the profile of the decay function. Notice that all of the spectral properties of the noise are now encapsulated in $J_n$ while the form of the noise interaction are captured in the $h_{n}$. The $K_n(t)$ operators are now
+\begin{align}
+    K_n(t) & =\frac{1}{\hbar^2}\sum_{abc}(e^{i\omega_{ac}t_0}h_{n,ab}h_{n,bc}J_n(t,\omega_{ba},\omega_{cb})\ket{a}\bra{c}\otimes 1+e^{-i\omega_{ac}t_0}J_n(t,\omega_{ab},\omega_{bc})h_{n,ba}h_{n,cb} 1\otimes \ket{a}\bra{c}) \nonumber \\
+           & \qquad\qquad\qquad\qquad -\frac{1}{\hbar^2}\sum_{abcd}e^{i(\omega_{ac}+\omega_{bd})t_0}h_{i,ac}h_{i,db} (J_n(t,\omega_{ca},\omega_{db})+J_n(t,\omega_{db},\omega_{ca})) \ket{a}\bra{c}\otimes \ket{b}\bra{d}
+\end{align}
+Our final expression for the density vector back in the Schroedinger picture is now
+\begin{equation}
+    \vec{\rho}(t) = \sum_{jk}e^{-i\omega_{jk}t}(R\otimes R)(\ket{j}\bra{j}\otimes\ket{k}\bra{k})e^{-\sum_nK_n(t)}(R^{-1}\otimes R^{-1})\vec{\rho}(0)
+\end{equation}
+
+In the rest of this section, we explore the noise decay profile function $J_n(t,\omega_1,\omega_2)$ for $1/f$ noise. Other noise types are covered in the reference~\cite{yang_2019}.
